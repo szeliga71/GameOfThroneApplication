@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Books </title>
+    <style>
+        a {
+            color: blue;
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: purple;
+        }
+
+        a:hover {
+            color: green; /* Kolor przy najechaniu kursorem */
+        }
+
+        a:active {
+            color: red; /* Kolor podczas kliknięcia */
+        }
+    </style>
+    <script>
+        function goToCharacterSearch() {
+            console.log("Function called.");
+            window.location.href = "CharacterSearch";
+        }
+    </script>
+</head>
+<body>
+<h1> Lista ksiazek </h1>
+<table>
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>ISBN</th>
+        <th>Number Of Pages</th>
+        <th>Country of Orgin</th>
+        <th>Release Date</th>
+
+        <!--<th>Characters</th>-->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${bookList.isEmpty()}">
+        <td colspan="2">No Books Available</td>
+    </tr>
+    <tr th:each="book,stat : ${bookList}">
+
+        <td th:text="${stat.index +1}+'.'"></td>
+        <td><span th:text="${book.name}">Title</span></td>
+        <td><span th:text="${book.getAuthors()}">Author</span></td>
+        <td><span th:text="${book.getIsbn()}">ISBN</span></td>
+        <td><span th:text="${book.getNumbersOfPages()}">Number Of Pages</span></td>
+        <td><span th:text="${book.getCountryOfOrigin()}">Country of Orgin</span></td>
+        <td><span th:text="${book.getReleaseDate()}">Release Date</span></td>
+        <td><a th:href="@{/book(id=${bookList.indexOf(book)+1})}">Deatails of Link</a></td>
+        <!-- <td><span th:text="${book.getCharacters()}">Characters</span></td>-->
+    </tr>
+    </tbody>
+</table>
+<button onclick="goToCharacterSearch()">Go to Character Search</button>
+</body>
+</html>

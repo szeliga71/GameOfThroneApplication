@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${character.getName()}"></title>
+    <script>
+        function goToBooks() {
+            console.log("Function called.");
+            window.location.href = "books";
+        }
+    </script>
+    <!-- <style>
+         .button-style {
+             padding: 10px 20px;
+             background-color: #007BFF;
+             color: white;
+             text-decoration: none;
+             border-radius: 5px;
+             border: none;
+             cursor: pointer;
+         }
+         .button-style:hover {
+             background-color: #0056b3;
+         }
+     </style>-->
+<body>
+<ul>
+    <li><strong>Name:</strong> <span th:text="${character.getName()}"></span></li>
+
+</ul>
+<p><strong>Gender:</strong> <span th:text="${character.getGender()}"></span></p>
+<p><strong>Culture:</strong> <span th:text="${character.getCulture()}"></span></p>
+<p><strong>Titles:</strong> <span th:text="${character.getTitles()}"></span></p>
+<p><strong>Aliases:</strong> <span th:text="${character.getAliases()}"></span></p>
+<p><strong>Allegiances:</strong> <span th:text="${character.getAllegiances()}"></span></p>
+<p><strong>PlayedBy:</strong> <span th:text="${character.getPlayedBy()}"></span></p>
+<p><strong>TvSeriesSeasons:</strong> <span th:text="${character.getTvSeriesSeasons()}"></span></p>
+<p><strong>Mother:</strong> <span th:text="${character.getMother()}"></span></p>
+<p><strong>Father:</strong> <span th:text="${character.getFather()}"></span></p>
+<p><strong>Spouse:</strong> <span th:text="${character.getSpouse()}"></span></p>
+<button onclick="history.back()">Go back</button>
+<button onclick="goToBooks()">Go to books</button>
+<a href="books" class="button-style">Go to Books</a>
+<button><a th:href="@{/books}">go to books</a></button>
+</body>
+</html>
+
