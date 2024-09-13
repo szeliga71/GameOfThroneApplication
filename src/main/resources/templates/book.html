@@ -41,7 +41,6 @@
                 <form th:action="@{/book}" method="post">
                     <input type="hidden" name="URIAdress" th:value="${characterLink}"/>
                     <button type="submit" th:text="${characterLink}">View Character</button>
-                    <!--<a href="javascript:void(0);" th:onclick="'document.getElementById(\'' + 'form_' + ${iterStat.index} + '\').submit();'" th:text="${characterLink}">View Character</a>-->
                 </form>
 
             </li>

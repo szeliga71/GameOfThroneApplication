@@ -2,6 +2,7 @@ package pl.wp.gameofthroneapplication.connection;
 
 import pl.wp.gameofthroneapplication.mapper.BookMapper;
 import pl.wp.gameofthroneapplication.model.Book;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
