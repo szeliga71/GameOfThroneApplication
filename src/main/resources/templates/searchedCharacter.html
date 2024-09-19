@@ -3,24 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <title>Searched Character</title>
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         .logout-form {
-        display: flex;
-        justify-content: right; /* Wyśrodkuj przycisk */
-        margin: 20px 0; /* Dodaj odstępy wokół formularza */
-    }
+            display: flex;
+            justify-content: right; /* Wyśrodkuj przycisk */
+            margin: 20px 0; /* Dodaj odstępy wokół formularza */
+        }
 
-    .logout-button {
-        background-color: #ff4d4d; /* Kolor tła */
-        color: white; /* Kolor tekstu */
-        /*border: none;  Usuń obramowanie */
-        padding: 10px 20px; /* Dodaj odstępy wewnętrzne */
-        font-size: 16px; /* Rozmiar tekstu */
-        cursor: pointer; /* Zmień kursor na wskaźnik */
-        border-radius: 5px; /* Zaokrąglenie rogów */
-        transition: background-color 0.3s ease; /* Płynne przejście koloru tła */
-    }
+        .logout-button {
+            background-color: #ff4d4d; /* Kolor tła */
+            color: white; /* Kolor tekstu */
+            padding: 10px 20px; /* Dodaj odstępy wewnętrzne */
+            font-size: 16px; /* Rozmiar tekstu */
+            cursor: pointer; /* Zmień kursor na wskaźnik */
+            border-radius: 5px; /* Zaokrąglenie rogów */
+            transition: background-color 0.3s ease; /* Płynne przejście koloru tła */
+        }
+
+        .logout-button:hover {
+            background-color: #ff1a1a; /* Zmiana koloru po najechaniu */
+        }
+
+        .container {
+            margin-top: 50px; /* Margines z góry */
+        }
+
+        .search-form {
+            margin-top: 20px;
+        }
+
+        .btn-random {
+            margin-top: 20px;
+            margin-right: 10px;
+        }
+
+        .btn-lucky {
+            margin-top: 20px;
+        }
+
+        .btn-search {
+            margin-top: 10px;
+        }
+        .email-highlight {
+            color: orange; /* Kolor tekstu */
+            font-family: 'Arial', sans-serif; /* Czcionka */
+            font-weight: bold; /* Pogrubienie */
+        }
     </style>
     <script>
         function getRandomCharacter() {
@@ -29,22 +58,28 @@
     </script>
 </head>
 <body>
-<p>Zalogowany użytkownik: <span sec:authentication="name"></span></p>
-<form th:action="@{/logout}" method="post" class="logout-form">
-    <input type="submit" value="Logout" class="logout-button"/>
-</form>
-<br>
-<form action="#" th:action="@{/CharacterSearch}" th:object="${characterSearchObject}" method="post">
-    <input type="text" th:field="*{name}"/>
-    <button type="submit">Search</button>
-</form>
-<br>
-<br>
-<button onclick="getRandomCharacter()">Random Character</button>
-<button><a th:href="@{/character}">Lucky guess</a></button>
-<br>
-<form th:action="@{/logout}" method="post" class="logout-form">
-    <input type="submit" value="Logout" class="logout-button"/>
-</form>
+<div class="container">
+    <h1 class="text-center mb-4">Character Search</h1>
+
+    <p>Zalogowany użytkownik: <span class="email-highlight" sec:authentication="name"></span></p>
+
+
+    <form action="#" th:action="@{/CharacterSearch}" th:object="${characterSearchObject}" method="post" class="search-form">
+        <div class="form-group">
+            <label for="name">Enter Character Name:</label>
+            <input type="text" th:field="*{name}" id="name" class="form-control" placeholder="Character Name">
+        </div>
+        <button type="submit" class="btn btn-primary btn-search">Search</button>
+    </form>
+
+    <div class="d-flex">
+        <button onclick="getRandomCharacter()" class="btn btn-info btn-random">Random Character</button>
+        <a th:href="@{/character}" class="btn btn-secondary btn-lucky">Lucky Guess</a>
+    </div>
+
+    <form th:action="@{/logout}" method="post" class="logout-form">
+        <input type="submit" value="Logout" class="logout-button"/>
+    </form>
+</div>
 </body>
 </html>

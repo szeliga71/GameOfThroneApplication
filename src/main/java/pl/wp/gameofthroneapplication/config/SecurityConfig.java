@@ -46,17 +46,7 @@ private final BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
                         .failureUrl("/login?error=true")
                         .permitAll())
                 .logout(logout ->logout
-                               /* .logoutSuccessHandler(new LogoutSuccessHandler() {
-                                    @Override
-                                    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response,
-                                                                Authentication authentication) throws IOException {
-                                        if (authentication != null && authentication.getName() != null) {
-                                            response.sendRedirect("/logoutPage?user=" + authentication.getName());
-                                        } else {
-                                            response.sendRedirect("/logoutPage");
-                                        }
-                                    }
-                                }));*/
+
                         .logoutSuccessUrl("/logoutPage")
                         .permitAll());
         return security.build();

@@ -1,24 +1,52 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <title th:text="${character.getName()}"></title>
-    <style>        .logout-form {
-        display: flex;
-        justify-content: right; /* Wyśrodkuj przycisk */
-        margin: 20px 0; /* Dodaj odstępy wokół formularza */
-    }
+    <style>
+        .logout-form {
+            display: flex;
+            justify-content: right; /* Wyśrodkuj przycisk */
+            margin: 20px 0; /* Dodaj odstępy wokół formularza */
+        }
 
-    .logout-button {
-        background-color: #ff4d4d; /* Kolor tła */
-        color: white; /* Kolor tekstu */
-        /*border: none;  Usuń obramowanie */
-        padding: 10px 20px; /* Dodaj odstępy wewnętrzne */
-        font-size: 16px; /* Rozmiar tekstu */
-        cursor: pointer; /* Zmień kursor na wskaźnik */
-        border-radius: 5px; /* Zaokrąglenie rogów */
-        transition: background-color 0.3s ease; /* Płynne przejście koloru tła */
-    }
+        .logout-button {
+            background-color: #ff4d4d; /* Kolor tła */
+            color: white; /* Kolor tekstu */
+            padding: 10px 20px; /* Dodaj odstępy wewnętrzne */
+            font-size: 16px; /* Rozmiar tekstu */
+            cursor: pointer; /* Zmień kursor na wskaźnik */
+            border-radius: 5px; /* Zaokrąglenie rogów */
+            transition: background-color 0.3s ease; /* Płynne przejście koloru tła */
+        }
+
+        .logout-button:hover {
+            background-color: #ff1a1a; /* Zmiana koloru po najechaniu */
+        }
+
+        .container {
+            margin-top: 50px; /* Margines z góry */
+        }
+
+        .character-details {
+            margin-top: 30px;
+        }
+
+        .btn-back {
+            margin-top: 20px;
+        }
+
+        .btn-books {
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+        .email-highlight {
+            color: orange; /* Kolor tekstu */
+            font-family: 'Arial', sans-serif; /* Czcionka */
+            font-weight: bold; /* Pogrubienie */
+        }
     </style>
     <script>
         function goToBooks() {
@@ -26,30 +54,41 @@
             window.location.href = "books";
         }
     </script>
+</head>
 
 <body>
-<p>Zalogowany użytkownik: <span sec:authentication="name"></span></p>
-<form th:action="@{/logout}" method="post" class="logout-form">
-    <input type="submit" value="Logout" class="logout-button"/>
-</form>
-<ul>
-    <li><strong>Name:</strong> <span th:text="${character.getName()}"></span></li>
+<div class="container">
+    <h1 class="text-center mb-4" th:text="${character.getName()}">Character Details</h1>
 
-</ul>
-<p><strong>Gender:</strong> <span th:text="${character.getGender()}"></span></p>
-<p><strong>Culture:</strong> <span th:text="${character.getCulture()}"></span></p>
-<p><strong>Titles:</strong> <span th:text="${character.getTitles()}"></span></p>
-<p><strong>Aliases:</strong> <span th:text="${character.getAliases()}"></span></p>
-<p><strong>Allegiances:</strong> <span th:text="${character.getAllegiances()}"></span></p>
-<p><strong>PlayedBy:</strong> <span th:text="${character.getPlayedBy()}"></span></p>
-<p><strong>TvSeriesSeasons:</strong> <span th:text="${character.getTvSeriesSeasons()}"></span></p>
-<p><strong>Mother:</strong> <span th:text="${character.getMother()}"></span></p>
-<p><strong>Father:</strong> <span th:text="${character.getFather()}"></span></p>
-<p><strong>Spouse:</strong> <span th:text="${character.getSpouse()}"></span></p>
-<button onclick="history.back()">Go back</button>
-<button onclick="goToBooks()">Go to books</button>
-<!--<a href="books" class="button-style">Go to Books</a>-->
-<!--<button><a th:href="@{/books}">go to books</a></button>-->
+
+    <p>Zalogowany użytkownik: <span class="email-highlight" sec:authentication="name"></span></p>
+
+
+    <form th:action="@{/logout}" method="post" class="logout-form">
+        <input type="submit" value="Logout" class="logout-button"/>
+    </form>
+
+    <!-- Szczegóły postaci -->
+    <div class="character-details">
+        <ul class="list-group">
+            <li class="list-group-item"><strong>Name:</strong> <span th:text="${character.getName()}"></span></li>
+            <li class="list-group-item"><strong>Gender:</strong> <span th:text="${character.getGender()}"></span></li>
+            <li class="list-group-item"><strong>Culture:</strong> <span th:text="${character.getCulture()}"></span></li>
+            <li class="list-group-item"><strong>Titles:</strong> <span th:text="${character.getTitles()}"></span></li>
+            <li class="list-group-item"><strong>Aliases:</strong> <span th:text="${character.getAliases()}"></span></li>
+            <li class="list-group-item"><strong>Allegiances:</strong> <span th:text="${character.getAllegiances()}"></span></li>
+            <li class="list-group-item"><strong>Played By:</strong> <span th:text="${character.getPlayedBy()}"></span></li>
+            <li class="list-group-item"><strong>Tv Series Seasons:</strong> <span th:text="${character.getTvSeriesSeasons()}"></span></li>
+            <li class="list-group-item"><strong>Mother:</strong> <span th:text="${character.getMother()}"></span></li>
+            <li class="list-group-item"><strong>Father:</strong> <span th:text="${character.getFather()}"></span></li>
+            <li class="list-group-item"><strong>Spouse:</strong> <span th:text="${character.getSpouse()}"></span></li>
+        </ul>
+    </div>
+
+    <div class="d-flex justify-content-start btn-back">
+        <button onclick="history.back()" class="btn btn-primary btn-books">Go back</button>
+        <button onclick="goToBooks()" class="btn btn-secondary">Go to books</button>
+    </div>
+</div>
 </body>
 </html>
-

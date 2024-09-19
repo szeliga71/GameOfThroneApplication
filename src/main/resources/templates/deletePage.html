@@ -18,14 +18,14 @@
     </tr>
     </table>
 <br>
-    <!-- Formularz usuwania użytkownika -->
+
     <form th:action="@{/deletePage}" method="post" th:object="${customUserSearchObject}">
         <label for="email">Email:</label>
         <input type="text" th:field="*{email}" id="email" placeholder="Wprowadź email">
         <button type="submit">Usuń</button>
     </form>
         <br>
-        <!-- Wyświetlenie komunikatu o sukcesie lub błędzie -->
+
         <div th:if="${message}">
             <p th:text="${message}"></p>
         </div>

@@ -2,7 +2,8 @@
 <html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>book page</title>
+    <title>Book Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         a {
             color: blue;
@@ -20,6 +21,7 @@
         a:active {
             color: red; /* Kolor podczas kliknięcia */
         }
+
         .logout-form {
             display: flex;
             justify-content: right; /* Wyśrodkuj przycisk */
@@ -29,49 +31,80 @@
         .logout-button {
             background-color: #ff4d4d; /* Kolor tła */
             color: white; /* Kolor tekstu */
-            /*border: none;  Usuń obramowanie */
             padding: 10px 20px; /* Dodaj odstępy wewnętrzne */
             font-size: 16px; /* Rozmiar tekstu */
             cursor: pointer; /* Zmień kursor na wskaźnik */
             border-radius: 5px; /* Zaokrąglenie rogów */
             transition: background-color 0.3s ease; /* Płynne przejście koloru tła */
         }
+
+        .logout-button:hover {
+            background-color: #ff1a1a; /* Zmiana koloru po najechaniu */
+        }
+
+        .container {
+            margin-top: 50px; /* Margines z góry */
+        }
+
+        .book-details {
+            margin-top: 30px;
+            list-style-type: none; /* Usuń kropki listy */
+        }
+
+        .book-details li {
+            margin-bottom: 10px; /* Odstępy między elementami listy */
+        }
+
+        .btn-back {
+            margin-bottom: 20px; /* Margines poniżej przycisku powrotu */
+        }
+
+        .character-list {
+            margin-top: 10px;
+        }
+        .email-highlight {
+            color: orange; /* Kolor tekstu */
+            font-family: 'Arial', sans-serif; /* Czcionka */
+            font-weight: bold; /* Pogrubienie */
+        }
     </style>
 </head>
 <body>
-<h1> Book </h1>
-<p>Zalogowany użytkownik: <span sec:authentication="name"></span></p>
-<button onclick="history.back()">Go back</button>
-<form th:action="@{/logout}" method="post" class="logout-form">
-    <input type="submit" value="Logout" class="logout-button"/>
-</form>
-<ul>
-    <li><strong>Title:</strong> <span th:text="${book.name}"></span></li>
-    <li><strong>Author:</strong> <span th:text="${book.authors}"></span></li>
-    <li><strong>ISBN:</strong> <span th:text="${book.isbn}"></span></li>
-    <li><strong>Number of Pages:</strong> <span th:text="${book.numbersOfPages}"></span></li>
-    <li><strong>Country of Origin:</strong> <span th:text="${book.countryOfOrigin}"></span></li>
-    <li><strong>Release Date:</strong> <span th:text="${book.releaseDate}"></span></li>
-    <li><strong>Characters:</strong>
-        <ul>
-            <li th:if="${book.characters == null || book.characters.isEmpty()}">No Characters Available</li>
-            <li th:each="characterLink : ${book.characters}"
-                th:unless="${book.characters == null || book.characters.isEmpty()}">
-                <!--<a th:href="${characterLink}" th:text="${characterLink}">Link Text</a>-->
-                <form th:action="@{/book}" method="post">
-                    <input type="hidden" name="URIAdress" th:value="${characterLink}"/>
-                    <button type="submit" th:text="${characterLink}">View Character</button>
-                </form>
+<div class="container">
+    <h1 class="text-center mb-4">Book Details</h1>
 
-            </li>
-        </ul>
+    <p>Zalogowany użytkownik: <span class="email-highlight" sec:authentication="name"></span></p>
 
-    </li>
-</ul>
-<button onclick="history.back()">Go back</button>
-<br>
-<form th:action="@{/logout}" method="post" class="logout-form">
-    <input type="submit" value="Logout" class="logout-button"/>
-</form>
+    <button onclick="history.back()" class="btn btn-primary btn-back">Go back</button>
+
+    <ul class="book-details">
+        <li><strong>Title:</strong> <span th:text="${book.name}"></span></li>
+        <li><strong>Author:</strong> <span th:text="${book.authors}"></span></li>
+        <li><strong>ISBN:</strong> <span th:text="${book.isbn}"></span></li>
+        <li><strong>Number of Pages:</strong> <span th:text="${book.numbersOfPages}"></span></li>
+        <li><strong>Country of Origin:</strong> <span th:text="${book.countryOfOrigin}"></span></li>
+        <li><strong>Release Date:</strong> <span th:text="${book.releaseDate}"></span></li>
+        <li><strong>Characters:</strong>
+            <ul class="character-list">
+                <li th:if="${book.characters == null || book.characters.isEmpty()}">No Characters Available</li>
+                <li th:each="characterLink : ${book.characters}"
+                    th:unless="${book.characters == null || book.characters.isEmpty()}">
+                    <form th:action="@{/book}" method="post">
+                        <input type="hidden" name="URIAdress" th:value="${characterLink}"/>
+                        <button type="submit" th:text="${characterLink}" class="btn btn-info btn-sm">View Character</button>
+                    </form>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+
+    <button onclick="history.back()" class="btn btn-primary btn-back">Go back</button>
+
+
+    <form th:action="@{/logout}" method="post" class="logout-form">
+        <input type="submit" value="Logout" class="logout-button"/>
+    </form>
+</div>
 </body>
 </html>

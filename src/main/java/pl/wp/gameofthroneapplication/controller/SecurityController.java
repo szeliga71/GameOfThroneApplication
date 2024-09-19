@@ -40,6 +40,8 @@ public class SecurityController {
             return "security/register";
         }
 
+        user.setRole("USER");
+
         userDao.saveUser(user);
         return "security/login";
     }

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>List of Books </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         a {
             color: blue;
@@ -23,7 +24,7 @@
 
         .logout-form {
             display: flex;
-            justify-content: right; /* Wyśrodkuj przycisk */
+            justify-content: flex-end; /* Wyśrodkuj przycisk *//* Wyrównanie przycisku do prawej */
             margin: 20px 0; /* Dodaj odstępy wokół formularza */
         }
 
@@ -37,6 +38,25 @@
             border-radius: 5px; /* Zaokrąglenie rogów */
             transition: background-color 0.3s ease; /* Płynne przejście koloru tła */
         }
+
+
+        .logout-button:hover {
+            background-color: #ff1a1a; /* Zmiana koloru po najechaniu */
+        }
+
+        .container {
+            margin-top: 50px; /* Margines z góry, aby oddalić zawartość od górnej krawędzi */
+        }
+
+        .table-container
+        {
+            margin-top: 30px;
+        }
+        .email-highlight {
+            color: orange; /* Kolor tekstu */
+            font-family: 'Arial', sans-serif; /* Czcionka */
+            font-weight: bold; /* Pogrubienie */
+        }
     </style>
     <script>
         function goToCharacterSearch() {
@@ -45,31 +65,37 @@
         }
     </script>
 </head>
+
+
 <body>
-<h1> Lista ksiazek </h1>
+
+<div class="container">
+
+    <h1 class="text-center mb-4">Lista książek</h1>
+    <p>Zalogowany użytkownik: <span class="email-highlight" sec:authentication="name"></span></p>
+
 <table>
-    <thead>
+
+    <div class="table-container">
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
     <tr>
-        <th>#</th>
+        <th>No.</th>
         <th>Title</th>
         <th>Author</th>
         <th>ISBN</th>
         <th>Number Of Pages</th>
         <th>Country of Orgin</th>
         <th>Release Date</th>
-
-        <!--<th>Characters</th>-->
+        <th>Details</th>
     </tr>
     </thead>
     <tbody>
-    <p>Zalogowany użytkownik: <span sec:authentication="name"></span></p>
-    <form th:action="@{/logout}" method="post" class="logout-form">
-        <input type="submit" value="Logout" class="logout-button"/>
-    </form>
-    <br>
-    <tr th:if="${bookList.isEmpty()}">
-        <td colspan="2">No Books Available</td>
-    </tr>
+
+   <tr th:if="${bookList.isEmpty()}">
+       <td colspan="8" class="text-center">No Books Available</td>
+   </tr>
+
     <tr th:each="book,stat : ${bookList}">
 
         <td th:text="${stat.index +1}+'.'"></td>
@@ -79,13 +105,13 @@
         <td><span th:text="${book.getNumbersOfPages()}">Number Of Pages</span></td>
         <td><span th:text="${book.getCountryOfOrigin()}">Country of Orgin</span></td>
         <td><span th:text="${book.getReleaseDate()}">Release Date</span></td>
-        <td><a th:href="@{/book(id=${bookList.indexOf(book)+1})}">Deatails of Link</a></td>
+        <td><a th:href="@{/book(id=${bookList.indexOf(book)+1})}" class="btn btn-info btn-sm">Deatails of Link</a></td>
     </tr>
     </tbody>
 </table>
-<br>
-<button onclick="goToCharacterSearch()">Go to Character Search</button>
-<br>
+
+<button onclick="goToCharacterSearch()" class="btn btn-primary">Go to Character Search</button>
+<br><br>
 
 <form th:action="@{/logout}" method="post" class="logout-form">
     <input type="submit" value="Logout" class="logout-button"/>

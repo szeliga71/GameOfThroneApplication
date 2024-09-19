@@ -14,17 +14,16 @@
 <br><div class="container">
     <h2>Logowanie</h2>
 
-    <!-- czy użytkownik się wylogował -->
+
     <div th:if="${param.logout}" class="alert alert-success">
         Zostałeś wylogowany pomyślnie.
     </div>
 
-    <!-- Sprawdzanie, czy wystąpił błąd logowania -->
     <div th:if="${param.error}" class="alert alert-danger">
         Nieprawidłowy login lub hasło. Spróbuj ponownie.
     </div>
 
-    <!-- Formularz logowania -->
+
     <form th:action="@{/login}" method="post">
         <div class="form-group">
             <label for="email">Email</label>
