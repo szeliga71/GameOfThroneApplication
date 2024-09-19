@@ -17,7 +17,8 @@ public class CustomUserSecurityService implements UserDetailsService {
         CustomUser customUser = customUserDao.findUserByEmail(mail);
         return User.withUsername(customUser.getEmail())
                 .password(customUser.getPassword())
-                .authorities("USER").build();
+                .roles(customUser.getRole())
+                .build();
     }
 }
 

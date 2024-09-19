@@ -1,29 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title th:text="${character.getName()}"></title>
+    <style>        .logout-form {
+        display: flex;
+        justify-content: right; /* Wyśrodkuj przycisk */
+        margin: 20px 0; /* Dodaj odstępy wokół formularza */
+    }
+
+    .logout-button {
+        background-color: #ff4d4d; /* Kolor tła */
+        color: white; /* Kolor tekstu */
+        /*border: none;  Usuń obramowanie */
+        padding: 10px 20px; /* Dodaj odstępy wewnętrzne */
+        font-size: 16px; /* Rozmiar tekstu */
+        cursor: pointer; /* Zmień kursor na wskaźnik */
+        border-radius: 5px; /* Zaokrąglenie rogów */
+        transition: background-color 0.3s ease; /* Płynne przejście koloru tła */
+    }
+    </style>
     <script>
         function goToBooks() {
             console.log("Function called.");
             window.location.href = "books";
         }
     </script>
-    <!-- <style>
-         .button-style {
-             padding: 10px 20px;
-             background-color: #007BFF;
-             color: white;
-             text-decoration: none;
-             border-radius: 5px;
-             border: none;
-             cursor: pointer;
-         }
-         .button-style:hover {
-             background-color: #0056b3;
-         }
-     </style>-->
+
 <body>
+<p>Zalogowany użytkownik: <span sec:authentication="name"></span></p>
+<form th:action="@{/logout}" method="post" class="logout-form">
+    <input type="submit" value="Logout" class="logout-button"/>
+</form>
 <ul>
     <li><strong>Name:</strong> <span th:text="${character.getName()}"></span></li>
 
@@ -40,8 +48,8 @@
 <p><strong>Spouse:</strong> <span th:text="${character.getSpouse()}"></span></p>
 <button onclick="history.back()">Go back</button>
 <button onclick="goToBooks()">Go to books</button>
-<a href="books" class="button-style">Go to Books</a>
-<button><a th:href="@{/books}">go to books</a></button>
+<!--<a href="books" class="button-style">Go to Books</a>-->
+<!--<button><a th:href="@{/books}">go to books</a></button>-->
 </body>
 </html>
 

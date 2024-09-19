@@ -10,6 +10,9 @@ import pl.wp.gameofthroneapplication.connection.BookAPIHandler;
 import pl.wp.gameofthroneapplication.connection.CharacterAPIHandler;
 import pl.wp.gameofthroneapplication.model.Book;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class BookController {
 
@@ -18,7 +21,11 @@ public class BookController {
 
     @RequestMapping("/books")
     public String getBookList(Model model) {
-        model.addAttribute("bookList", bookAPIHandler.getAllBooks());
+        List<Book> booksList=bookAPIHandler.getAllBooks();
+        if(booksList==null){
+            booksList=new ArrayList<>();
+        }
+        model.addAttribute("bookList", booksList);
         return "booksPage";
     }
 

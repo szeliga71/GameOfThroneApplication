@@ -1,6 +1,8 @@
 package pl.wp.gameofthroneapplication.config;
 
-import jakarta.servlet.http.HttpSession;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -8,9 +10,14 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import pl.wp.gameofthroneapplication.service.CustomUserSecurityService;
+
+import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
@@ -24,20 +31,33 @@ private final BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
         this.customUserSecurityService = customUserSecurityService;
     }
 
-//zasoby ktore sa dostepne dla wszystkich
-    // zasoby ktore sa autentykowane
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity security) throws Exception {
         security.
                 authorizeHttpRequests((request)->request
-                        .requestMatchers("/","/register")
-                        .permitAll().anyRequest()
+                        .requestMatchers("/","/register").permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .anyRequest()
                         .authenticated())
                 .formLogin((form)->form
                         .loginPage("/login")
                         .usernameParameter("email")
-                        .defaultSuccessUrl("books")
+                        .defaultSuccessUrl("/books" )
+                        .failureUrl("/login?error=true")
+                        .permitAll())
+                .logout(logout ->logout
+                               /* .logoutSuccessHandler(new LogoutSuccessHandler() {
+                                    @Override
+                                    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response,
+                                                                Authentication authentication) throws IOException {
+                                        if (authentication != null && authentication.getName() != null) {
+                                            response.sendRedirect("/logoutPage?user=" + authentication.getName());
+                                        } else {
+                                            response.sendRedirect("/logoutPage");
+                                        }
+                                    }
+                                }));*/
+                        .logoutSuccessUrl("/logoutPage")
                         .permitAll());
         return security.build();
     }

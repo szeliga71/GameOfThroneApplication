@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>delete page</title>
+</head>
+<body>
+<h2>Usuń użytkownika</h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Email</th>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.email}"></td>
+        <br>
+    </tr>
+    </table>
+<br>
+    <!-- Formularz usuwania użytkownika -->
+    <form th:action="@{/deletePage}" method="post" th:object="${customUserSearchObject}">
+        <label for="email">Email:</label>
+        <input type="text" th:field="*{email}" id="email" placeholder="Wprowadź email">
+        <button type="submit">Usuń</button>
+    </form>
+        <br>
+        <!-- Wyświetlenie komunikatu o sukcesie lub błędzie -->
+        <div th:if="${message}">
+            <p th:text="${message}"></p>
+        </div>
+        <div th:if="${error}">
+            <p th:text="${error}"></p>
+        </div>
+</body>
+</html>

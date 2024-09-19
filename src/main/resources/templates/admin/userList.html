@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User List</title>
+</head>
+<body>
+<table>
+    <h1>Uzytkownicy</h1>
+    <tr>
+        <th>ID</th>
+        <th>Email</th>
+        <th>Akcje</th>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.email}"></td>
+        <td>
+            <form  th:action="@{/userList}" method="post">
+                <input type="hidden" name="email" th:value="${user.email}">
+                <button type="submit">Usuń</button>
+            </form>
+        </td>
+       <!-- form action="#" th:action="@{/CharacterSearch}" th:object="${characterSearchObject}" method="post">
+        <input type="text" th:field="*{name}"/>
+        <button type="submit">Search</button>-->
+    </tr>
+</table>
+<h2>Usuń użytkownika</h2>
+<!-- Formularz usuwania użytkownika -->
+<form th:action="@{/userList}" method="post" th:object="${customUserSearchObject}">
+    <label for="email">Email:</label>
+    <input type="text" th:field="*{email}" id="email" placeholder="Wprowadź email">
+    <button type="submit">Usuń</button>
+</form>
+<br>
+<!-- Wyświetlenie komunikatu o sukcesie lub błędzie -->
+<div th:if="${message}">
+    <p th:text="${message}"></p>
+</div>
+<div th:if="${error}">
+    <p th:text="${error}"></p>
+</div>
+
+
+</body>
+</html>

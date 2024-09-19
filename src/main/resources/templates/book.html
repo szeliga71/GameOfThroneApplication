@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>book page</title>
@@ -20,11 +20,31 @@
         a:active {
             color: red; /* Kolor podczas kliknięcia */
         }
+        .logout-form {
+            display: flex;
+            justify-content: right; /* Wyśrodkuj przycisk */
+            margin: 20px 0; /* Dodaj odstępy wokół formularza */
+        }
+
+        .logout-button {
+            background-color: #ff4d4d; /* Kolor tła */
+            color: white; /* Kolor tekstu */
+            /*border: none;  Usuń obramowanie */
+            padding: 10px 20px; /* Dodaj odstępy wewnętrzne */
+            font-size: 16px; /* Rozmiar tekstu */
+            cursor: pointer; /* Zmień kursor na wskaźnik */
+            border-radius: 5px; /* Zaokrąglenie rogów */
+            transition: background-color 0.3s ease; /* Płynne przejście koloru tła */
+        }
     </style>
 </head>
 <body>
 <h1> Book </h1>
+<p>Zalogowany użytkownik: <span sec:authentication="name"></span></p>
 <button onclick="history.back()">Go back</button>
+<form th:action="@{/logout}" method="post" class="logout-form">
+    <input type="submit" value="Logout" class="logout-button"/>
+</form>
 <ul>
     <li><strong>Title:</strong> <span th:text="${book.name}"></span></li>
     <li><strong>Author:</strong> <span th:text="${book.authors}"></span></li>
@@ -49,5 +69,9 @@
     </li>
 </ul>
 <button onclick="history.back()">Go back</button>
+<br>
+<form th:action="@{/logout}" method="post" class="logout-form">
+    <input type="submit" value="Logout" class="logout-button"/>
+</form>
 </body>
 </html>

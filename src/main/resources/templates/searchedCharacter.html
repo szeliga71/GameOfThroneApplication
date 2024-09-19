@@ -1,8 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Searched Character</title>
+
+    <style>
+        .logout-form {
+        display: flex;
+        justify-content: right; /* Wyśrodkuj przycisk */
+        margin: 20px 0; /* Dodaj odstępy wokół formularza */
+    }
+
+    .logout-button {
+        background-color: #ff4d4d; /* Kolor tła */
+        color: white; /* Kolor tekstu */
+        /*border: none;  Usuń obramowanie */
+        padding: 10px 20px; /* Dodaj odstępy wewnętrzne */
+        font-size: 16px; /* Rozmiar tekstu */
+        cursor: pointer; /* Zmień kursor na wskaźnik */
+        border-radius: 5px; /* Zaokrąglenie rogów */
+        transition: background-color 0.3s ease; /* Płynne przejście koloru tła */
+    }
+    </style>
     <script>
         function getRandomCharacter() {
             window.location.href = "character";
@@ -10,6 +29,10 @@
     </script>
 </head>
 <body>
+<p>Zalogowany użytkownik: <span sec:authentication="name"></span></p>
+<form th:action="@{/logout}" method="post" class="logout-form">
+    <input type="submit" value="Logout" class="logout-button"/>
+</form>
 <br>
 <form action="#" th:action="@{/CharacterSearch}" th:object="${characterSearchObject}" method="post">
     <input type="text" th:field="*{name}"/>
@@ -19,5 +42,9 @@
 <br>
 <button onclick="getRandomCharacter()">Random Character</button>
 <button><a th:href="@{/character}">Lucky guess</a></button>
+<br>
+<form th:action="@{/logout}" method="post" class="logout-form">
+    <input type="submit" value="Logout" class="logout-button"/>
+</form>
 </body>
 </html>
