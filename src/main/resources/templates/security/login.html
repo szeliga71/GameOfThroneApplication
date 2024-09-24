@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .custom-input-width {
+            width: 300px; /* Ustawia szerokość */
+        }
+    </style>
+</head>
+<body>
+<br><div class="container">
+    <h2>Logowanie</h2>
+
+
+    <div th:if="${param.logout}" class="alert alert-success">
+        Zostałeś wylogowany pomyślnie.
+    </div>
+
+    <div th:if="${param.error}" class="alert alert-danger">
+        Nieprawidłowy login lub hasło. Spróbuj ponownie.
+    </div>
+
+
+    <form th:action="@{/login}" method="post">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" class="form-control custom-input-width" placeholder="Wprowadź email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Hasło</label>
+            <input type="password" id="password" name="password" class="form-control custom-input-width" placeholder="Wprowadź hasło" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Zaloguj się</button>
+    </form>
+</div>
+</body>
+</html>
